@@ -17,6 +17,7 @@ CREATE TABLE "characteristics" (
 CREATE TABLE "reviews" (
   "id" bigserial NOT NULL UNIQUE PRIMARY KEY,
   "rating" integer CHECK ("rating" > 0 AND "rating" < 6),
+  "summary": varchar(255),
   "recommend" boolean,
   "response" text,
   "body" text,
