@@ -9,7 +9,7 @@ CREATE TABLE "products" (
 
 CREATE TABLE "characteristics" (
   "id" bigserial NOT NULL UNIQUE PRIMARY KEY,
-  "characteristic" text,
+  "characteristic" varchar(30),
   "value" real,
   "product_id" integer
 );
@@ -21,16 +21,16 @@ CREATE TABLE "reviews" (
   "response" text,
   "body" text,
   "date" bigint,
-  "reviewer_name" text,
+  "reviewer_name" varchar(30),
   "helpfulness" integer CHECK ("helpfulness" > 0),
-  "email" text,
+  "email" varchar(30),
   "reported" boolean,
   "product_id" integer
 );
 
 CREATE TABLE "photos" (
   "id" bigserial NOT NULL UNIQUE PRIMARY KEY,
-  "url" text,
+  "url" varchar(255),
   "review_id" integer
 );
 
