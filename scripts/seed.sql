@@ -1,8 +1,3 @@
-
-leave constraints out during initial table declarations, then add foreign key constraints
-instead of loading all tables with foreign key constraints
-
-
 DROP DATABASE IF EXISTS reviews_service;
 CREATE DATABASE reviews_service;
 
