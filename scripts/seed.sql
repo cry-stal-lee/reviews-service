@@ -24,7 +24,7 @@ CREATE TABLE "reviews" (
   "date" bigint,
   "reviewer_name" varchar(30),
   "helpfulness" integer CHECK ("helpfulness" > 0),
-  "email" varchar(30),
+  "email" varchar(50),
   "reported" boolean,
   "product_id" integer
 );
