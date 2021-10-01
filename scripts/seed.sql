@@ -9,34 +9,40 @@ CREATE TABLE "products" (
 
 CREATE TABLE "characteristics" (
   "id" bigserial NOT NULL UNIQUE PRIMARY KEY,
-  "characteristic" varchar(30),
-  "value" real,
-  "product_id" integer
+  "product_id" integer,
+  "characteristic" varchar(30)
 );
 
 CREATE TABLE "reviews" (
   "id" bigserial NOT NULL UNIQUE PRIMARY KEY,
+  "product_id" integer,
   "rating" integer CHECK ("rating" > 0 AND "rating" < 6),
-  "summary": varchar(255),
-  "recommend" boolean,
-  "response" text,
-  "body" text,
   "date" bigint,
-  "reviewer_name" varchar(30),
-  "helpfulness" integer CHECK ("helpfulness" > 0),
-  "email" varchar(50),
+  "summary": varchar(255),
+  "body" text,
+  "recommend" boolean,
   "reported" boolean,
-  "product_id" integer
+  "reviewer_name" varchar(30),
+  "email" varchar(50),
+  "response" text,
+  "helpfulness" integer CHECK ("helpfulness" > 0)
 );
 
 CREATE TABLE "photos" (
   "id" bigserial NOT NULL UNIQUE PRIMARY KEY,
-  "url" varchar(255),
-  "review_id" integer
+  "review_id" integer,
+  "url" varchar(500)
 );
 
-ALTER TABLE "characteristics" ADD CONSTRAINT "charfk" FOREIGN KEY ("product_id") REFERENCES "products" ("id");
+CREATE TABLE "characteristic_reviews" {
+  "id" bigserial NOT NULL UNIQUE PRIMARY KEY,
+  "char_id" integer,
+  "review_id" integer,
+  "value" real
+}
 
-ALTER TABLE "reviews" ADD CONSTRAINT "revfk" FOREIGN KEY ("product_id") REFERENCES "products" ("id");
-
-ALTER TABLE "photos" ADD CONSTRAINT "photfk" FOREIGN KEY ("review_id") REFERENCES "reviews" ("id");
+ALTER TABLE "characteristics" ADD CONSTRAINT "characteristics_product_id_fk" FOREIGN KEY ("product_id") REFERENCES "products" ("id");
+ALTER TABLE "reviews" ADD CONSTRAINT "reviws_product_id_fk" FOREIGN KEY ("product_id") REFERENCES "products" ("id");
+ALTER TABLE "photos" ADD CONSTRAINT "photos_review_id_fk" FOREIGN KEY ("review_id") REFERENCES "reviews" ("id");
+ALTER TABLE "characteristic_reviews" ADD CONSTRAINT "characteristic_reviews_char_id_fk" FOREIGN KEY ("char_id") REFERENCES "characteristics" ("id");
+ALTER TABLE "characteristic_reviews" ADD CONSTRAINT "characteristic_reviews_review_id_fk" FOREIGN KEY ("review_id") REFERENCES "reviews" ("id");
