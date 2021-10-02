@@ -34,11 +34,11 @@ CREATE TABLE reviews (
   summary varchar(255),
   body text,
   recommend boolean,
-  reported boolean,
+  reported boolean DEFAULT false,
   reviewer_name varchar(30),
   email varchar(50),
   response text,
-  helpfulness integer CHECK (helpfulness >= 0)
+  helpfulness integer DEFAULT 0
 );
 
 GRANT ALL ON reviews TO atelier;
@@ -71,9 +71,12 @@ FROM '/Users/crystallee/Desktop/SDC Data/product.csv'
 DELIMITER ','
 CSV HEADER;
 
-INSERT INTO products (id)
+INSERT INTO products(id)
 SELECT id
 FROM tmp;
+
+CREATE INDEX ON products(id);
+SELECT SETVAL('products_id_seq', max(id)) FROM products;
 
 DROP TABLE tmp;
 
@@ -82,20 +85,39 @@ FROM '/Users/crystallee/Desktop/SDC Data/characteristics.csv'
 DELIMITER ','
 CSV HEADER;
 
+CREATE INDEX ON characteristics(id);
+CREATE INDEX ON characteristics(product_id);
+SELECT SETVAL('characteristics_id_seq', max(id)) FROM characteristics;
+
 COPY reviews
 FROM '/Users/crystallee/Desktop/SDC Data/reviews.csv'
 DELIMITER ','
 CSV HEADER;
+
+CREATE INDEX ON reviews(id);
+CREATE INDEX ON reviews(product_id);
+SELECT SETVAL('reviews_id_seq', max(id)) FROM reviews;
 
 COPY photos
 FROM '/Users/crystallee/Desktop/SDC Data/reviews_photos.csv'
 DELIMITER ','
 CSV HEADER;
 
+CREATE INDEX ON photos(id);
+CREATE INDEX ON photos(review_id);
+SELECT SETVAL('photos_id_seq', max(id)) FROM photos;
+
 COPY characteristic_reviews
 FROM '/Users/crystallee/Desktop/SDC Data/characteristic_reviews.csv'
 DELIMITER ','
 CSV HEADER;
 
+CREATE INDEX ON characteristic_reviews(id);
+CREATE INDEX ON characteristic_reviews(char_id);
+CREATE INDEX ON characteristic_reviews(review_id);
+SELECT SETVAL('characteristic_reviews_id_seq', max(id)) FROM characteristic_reviews;
+
 ALTER TABLE reviews
 ALTER COLUMN date TYPE timestamp USING to_timestamp(date / 1000);
+
+GRANT USAGE, SELECT ON ALL SEQUENCES IN SCHEMA public TO atelier;

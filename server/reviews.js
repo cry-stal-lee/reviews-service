@@ -1,5 +1,6 @@
 const express = require('express');
 const router = express.Router();
+const helpers = require('../db/helpers.js');
 
 router.use(express.json());
 
@@ -15,12 +16,14 @@ router.post('/', (req, res) => {
   res.status(201).send(`You posted ${JSON.stringify(req.body)}`);
 })
 
-router.put('/:review_id/helpful', (req, res) => {
-  res.status(204).send(`You marked ${req.params.review_id} as helpful!`);
+router.put('/:review_id/helpful', async(req, res) => {
+  await helpers.markAsHelpful(req.params.review_id);
+  res.status(204).send();
 })
 
-router.put('/:review_id/report', (req, res) => {
-  res.status(204).send(`You reported ${req.params.review_id}!`);
+router.put('/:review_id/report', async(req, res) => {
+  await helpers.reportReview(req.params.review_id);
+  res.status(204).send();
 })
 
 module.exports = router;
