@@ -19,6 +19,7 @@ const reportReview = async(review_id) => {
 }
 
 const getReviews = async(product_id, sort, count, page) => {
+  console.log(sort);
   const query = {
     text: `SELECT reviews.id AS review_id, reviews.rating, reviews.summary, reviews.recommend, reviews.response, reviews.body, reviews.date AS date, reviews.reviewer_name, reviews.helpfulness, json_agg(json_build_object('id', photos.id, 'url', photos.url)) AS photos
     FROM reviews LEFT JOIN photos
