@@ -26,10 +26,10 @@ const getReviews = async(product_id, sort, count, page) => {
     ON photos.review_id = reviews.id
     WHERE reviews.product_id = $1 AND reviews.reported = false
     GROUP BY reviews.id
-    ORDER BY $2 DESC
-    LIMIT $3
-    OFFSET $4;`,
-    values: [product_id, sort, count, (page - 1) * count]
+    ORDER BY ${sort} DESC
+    LIMIT $2
+    OFFSET $3;`,
+    values: [product_id, count, (page - 1) * count]
   }
   try {
     const res = await db.query(query);
