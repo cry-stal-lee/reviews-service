@@ -4,8 +4,15 @@ const helpers = require('../db/helpers.js');
 
 router.use(express.json());
 
-router.get('/', (req, res) => {
-  res.status(200).send(`This is a request for ${req.query.page} pages, ${req.query.count} results per page, sorted by ${req.query.sort}, for product_id ${req.query.product_id}`);
+router.get('/', async(req, res) => {
+  const page = req.query.page || 1;
+  const count = req.query.count || 5;
+  let sort = req.query.sort || 'newest';
+  if (sort === 'newest') {
+    sort = `date`;
+  }
+  const results = await helpers.getReviews(req.query.product_id, sort, count, page);
+  res.status(200).send(results);
 })
 
 router.get('/meta', (req, res) => {
