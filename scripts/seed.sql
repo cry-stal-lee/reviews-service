@@ -16,11 +16,15 @@ CREATE TABLE products (
   id bigserial NOT NULL UNIQUE PRIMARY KEY
 );
 
+GRANT ALL ON products TO atelier;
+
 CREATE TABLE characteristics (
   id bigserial NOT NULL UNIQUE PRIMARY KEY,
   product_id integer,
   characteristic varchar(30)
 );
+
+GRANT ALL ON characteristics TO atelier;
 
 CREATE TABLE reviews (
   id bigserial NOT NULL UNIQUE PRIMARY KEY,
@@ -37,11 +41,15 @@ CREATE TABLE reviews (
   helpfulness integer CHECK (helpfulness >= 0)
 );
 
+GRANT ALL ON reviews TO atelier;
+
 CREATE TABLE photos (
   id bigserial NOT NULL UNIQUE PRIMARY KEY,
   review_id integer,
   url varchar(500)
 );
+
+GRANT ALL ON photos TO atelier;
 
 CREATE TABLE characteristic_reviews (
   id bigserial NOT NULL UNIQUE PRIMARY KEY,
@@ -49,6 +57,8 @@ CREATE TABLE characteristic_reviews (
   review_id integer,
   value real
 );
+
+GRANT ALL ON characteristic_reviews TO atelier;
 
 ALTER TABLE characteristics ADD CONSTRAINT characteristics_product_id_fk FOREIGN KEY (product_id) REFERENCES products (id);
 ALTER TABLE reviews ADD CONSTRAINT reviws_product_id_fk FOREIGN KEY (product_id) REFERENCES products (id);
