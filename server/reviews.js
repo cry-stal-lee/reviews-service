@@ -15,8 +15,9 @@ router.get('/', async(req, res) => {
   res.status(200).send(results);
 })
 
-router.get('/meta', (req, res) => {
-  res.status(200).send(`This is a query for review metadata for product ${req.query.product_id}`);
+router.get('/meta', async(req, res) => {
+  const results = await helpers.getMeta(req.query.product_id);
+  res.status(200).send(results);
 })
 
 router.post('/', (req, res) => {

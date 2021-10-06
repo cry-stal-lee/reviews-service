@@ -38,4 +38,55 @@ const getReviews = async(product_id, sort, count, page) => {
   }
 }
 
-module.exports = { markAsHelpful, reportReview, getReviews};
+const getMeta = async(product_id) => {
+  const query = {
+    text: `SELECT * FROM
+    (SELECT json_build_object(0, COUNT(recommend)) AS recommended
+    FROM reviews
+    WHERE product_id=$1
+    AND recommend=true) AS recommended,
+    (SELECT json_strip_nulls(json_build_object(
+      0, SUM(CASE WHEN rating=0 THEN 1
+                  ELSE null
+             END),
+      1, SUM(CASE WHEN rating=1 THEN 1
+                  ELSE null
+             END),
+      2, SUM(CASE WHEN rating=2 THEN 1
+                  ELSE null
+             END),
+      3, SUM(CASE WHEN rating=3 THEN 1
+                  ELSE null
+             END),
+      4, SUM(CASE WHEN rating=4 THEN 1
+                  ELSE null
+             END),
+      5, SUM(CASE WHEN rating=5 THEN 1
+                  ELSE null
+             END))) as ratings
+    FROM reviews
+    WHERE product_id=$1
+    ) AS ratings,
+    (SELECT json_object_agg(inner_characteristics.characteristic, characteristics_list) AS characteristics
+     FROM
+         (SELECT
+          characteristics.characteristic, json_build_object('value', AVG(characteristic_reviews.value), 'id', characteristics.id)
+          AS characteristics_list
+           FROM characteristic_reviews
+          INNER JOIN characteristics
+          ON characteristics.product_id=48432
+          WHERE characteristic_reviews.char_id=characteristics.id
+          GROUP BY characteristics.id)AS inner_characteristics) AS characteristics`,
+    values: [product_id]
+  }
+  try {
+    const res = await db.query(query);
+    return res.rows;
+  } catch (err) {
+    return err.stack;
+  }
+}
+
+// const postReview = async()
+
+module.exports = { markAsHelpful, reportReview, getReviews, getMeta };
