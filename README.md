@@ -1,4 +1,4 @@
-# ⭐ E-Commerce Ratings & Reviews Service
+## ⭐ E-Commerce Ratings & Reviews Service
 For this project, my team was tasked with replacing the API for an e-commerce clothing retailer in order to handle increased web traffic. Each teammate focused on a different microservice. I worked on the Ratings & Reviews service.
 
 ## 🏆 Achievements and Optimizations
