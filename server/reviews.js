@@ -11,27 +11,43 @@ router.get('/', async(req, res) => {
   if (sort === 'newest') {
     sort = `date`;
   }
-  const results = await helpers.getReviews(req.query.product_id, sort, count, page);
-  res.status(200).send(results);
+  try {
+    const results = await helpers.getReviews(req.query.product_id, sort, count, page);
+    res.status(200).send(results.rows);
+  } catch (err) {
+    res.status(404).send(err.stack);
+  }
 })
 
 router.get('/meta', async(req, res) => {
-  const results = await helpers.getMeta(req.query.product_id);
-  res.status(200).send(results);
+  try {
+    const results = await helpers.getMeta(req.query.product_id);
+    res.status(200).send(results.rows);
+  } catch (err) {
+    res.status(404).send(err.stack);
+  }
+})
+
+router.put('/:review_id/helpful', async(req, res) => {
+  try {
+    const results = await helpers.markAsHelpful(req.params.review_id);
+    res.status(204).send();
+  } catch (err) {
+    res.status(404).send(err.stack);
+  }
+})
+
+router.put('/:review_id/report', async(req, res) => {
+  try {
+    const results = await helpers.reportReview(req.params.review_id);
+    res.status(204).send();
+  } catch (err) {
+    res.status(404).send(err.stack);
+  }
 })
 
 router.post('/', (req, res) => {
   res.status(201).send(`You posted ${JSON.stringify(req.body)}`);
-})
-
-router.put('/:review_id/helpful', async(req, res) => {
-  await helpers.markAsHelpful(req.params.review_id);
-  res.status(204).send();
-})
-
-router.put('/:review_id/report', async(req, res) => {
-  await helpers.reportReview(req.params.review_id);
-  res.status(204).send();
 })
 
 module.exports = router;

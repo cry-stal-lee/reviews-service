@@ -1,24 +1,16 @@
 const db = require('./index.js');
 
 const markAsHelpful = async(review_id) => {
-  try {
-    const res = await db.query(`UPDATE reviews SET helpfulness = helpfulness + 1 where id = $1;`, [review_id]);
-    console.log(`Successfully marked review ${review_id} as helpful!`);
-  } catch (err) {
-    console.log(err.stack);
-  }
+  const res = await db.query(`UPDATE reviews SET helpfulness = helpfulness + 1 where id = $1;`, [review_id]);
+  return res;
 }
 
 const reportReview = async(review_id) => {
-  try {
-    const res = await db.query(`UPDATE reviews SET reported=true WHERE id= $1`, [review_id]);
-    console.log(`Successfully reported review ${review_id}!`);
-  } catch (err) {
-    console.log(err.stack);
-  }
+  const res = await db.query(`UPDATE reviews SET reported=true WHERE id= $1`, [review_id]);
+  return res;
 }
 
-const getReviews = async(product_id, sort, count, page) => {
+const getReviews = async (product_id, sort, count, page) => {
   const query = {
     text: `SELECT reviews.id AS review_id, reviews.rating, reviews.summary, reviews.recommend, reviews.response, reviews.body, reviews.date AS date, reviews.reviewer_name, reviews.helpfulness, json_agg(json_build_object('id', photos.id, 'url', photos.url)) AS photos
     FROM reviews LEFT JOIN photos
@@ -30,12 +22,8 @@ const getReviews = async(product_id, sort, count, page) => {
     OFFSET $3;`,
     values: [product_id, count, (page - 1) * count]
   }
-  try {
-    const res = await db.query(query);
-    return res.rows;
-  } catch (err) {
-    return err.stack;
-  }
+  const results = await db.query(query);
+  return results;
 }
 
 const getMeta = async(product_id) => {
@@ -79,14 +67,8 @@ const getMeta = async(product_id) => {
           GROUP BY characteristics.id)AS inner_characteristics) AS characteristics`,
     values: [product_id]
   }
-  try {
-    const res = await db.query(query);
-    return res.rows;
-  } catch (err) {
-    return err.stack;
-  }
+  const res = await db.query(query);
+  return res;
 }
-
-// const postReview = async()
 
 module.exports = { markAsHelpful, reportReview, getReviews, getMeta };
