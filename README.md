@@ -5,6 +5,7 @@ For this project, my team was tasked with replacing the API for an e-commerce cl
 - Seeded a PostgreSQL database with over 10 million records
 - Optimized raw SQL query execution times to average < 1ms per query using hash indexes, joins and PostgreSQL JSON functions
 - Improved throughput from around 200 requests per second to 10000 requests per second with low latency and < 1% error rate by horizontal scaling with a load balancer, a second AWS server, and cache-ing
+- Deployed database and each server using Docker containers for superior version control
 
 ## 💻 Installation
 - NPM
