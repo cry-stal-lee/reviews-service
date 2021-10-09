@@ -67,7 +67,7 @@ ALTER TABLE characteristic_reviews ADD CONSTRAINT characteristic_reviews_char_id
 ALTER TABLE characteristic_reviews ADD CONSTRAINT characteristic_reviews_review_id_fk FOREIGN KEY (review_id) REFERENCES reviews (id);
 
 COPY tmp
-FROM '/Users/crystallee/Desktop/SDC Data/product.csv'
+FROM '/docker-entrypoint-initdb.d/SDC Data/product.csv'
 DELIMITER ','
 CSV HEADER;
 
@@ -81,7 +81,7 @@ SELECT SETVAL('products_id_seq', max(id)) FROM products;
 DROP TABLE tmp;
 
 COPY characteristics
-FROM '/Users/crystallee/Desktop/SDC Data/characteristics.csv'
+FROM '/docker-entrypoint-initdb.d/SDC Data/characteristics.csv'
 DELIMITER ','
 CSV HEADER;
 
@@ -90,7 +90,7 @@ CREATE INDEX ON characteristics(product_id);
 SELECT SETVAL('characteristics_id_seq', max(id)) FROM characteristics;
 
 COPY reviews
-FROM '/Users/crystallee/Desktop/SDC Data/reviews.csv'
+FROM '/docker-entrypoint-initdb.d/SDC Data/reviews.csv'
 DELIMITER ','
 CSV HEADER;
 
@@ -99,7 +99,7 @@ CREATE INDEX ON reviews(product_id);
 SELECT SETVAL('reviews_id_seq', max(id)) FROM reviews;
 
 COPY photos
-FROM '/Users/crystallee/Desktop/SDC Data/reviews_photos.csv'
+FROM '/docker-entrypoint-initdb.d/SDC Data/reviews_photos.csv'
 DELIMITER ','
 CSV HEADER;
 
@@ -108,7 +108,7 @@ CREATE INDEX ON photos(review_id);
 SELECT SETVAL('photos_id_seq', max(id)) FROM photos;
 
 COPY characteristic_reviews
-FROM '/Users/crystallee/Desktop/SDC Data/characteristic_reviews.csv'
+FROM '/docker-entrypoint-initdb.d/SDC Data/characteristic_reviews.csv'
 DELIMITER ','
 CSV HEADER;
 
