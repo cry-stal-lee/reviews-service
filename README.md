@@ -9,11 +9,6 @@ For *PROJECT ATELIER*, my team was tasked with replacing the API for an e-commer
 - Improved throughput from around 200 requests per second to over 5000 GET requests per second with <20 ms latency and 0% error rate on average by horizontal scaling between two EC2 server instances with NGINX
 - Deployed database and each server using Docker containers for version control
 
-## 💻 Installation
-- NPM
-- Node
-- PostgreSQL
-
 ## 👤 Usage
 - Install dependencies using [NPM](https://www.npmjs.com/)
 ```
