@@ -30,3 +30,8 @@ $ npm start
 - K6
 - New Relic
 - NGINX
+
+## 🤝 Authors
+- [@cry-stal-lee](http://github.com/cry-stal-lee)
+- [@nickwai1](http://github.com/nickwai1)
+- [@jleiandy](http://github.com/jleiandy)
