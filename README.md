@@ -16,11 +16,13 @@ For this project, my team was tasked with replacing the API for an e-commerce cl
 
 ## 👤 Usage
 ```
+$ git clone https://github.com/cry-stal-lee/reviews-service.git
+
 # install dependencies
-npm install
+$ npm install
 
 # start server
-npm start
+$ npm start
 
 # seed data
 change the connection string in the database file to refer to your Postgres database and run the ETL code to seed your database
