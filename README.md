@@ -1,7 +1,5 @@
 # ⭐ E-Commerce Ratings & Reviews Service
-For this project, my team was tasked with replacing the API for an e-commerce clothing retailer using a scalable microservice architecture in order to handle increased web traffic. Each teammate focused on a different microservice. I worked on the backend for the Ratings & Reviews service, the frontend of which is shown below.
-
-<img width="800" alt="Screen Shot 2021-10-26 at 1 38 39 AM-min" src="https://user-images.githubusercontent.com/52181740/138846685-83ad9043-8fd1-4a75-b4e9-ccb6718b1a99.png">
+For this project, my team was tasked with replacing the API for an e-commerce clothing retailer using a scalable microservice architecture in order to handle increased web traffic. Each teammate focused on a different microservice. I worked on the backend for the Ratings & Reviews service.
 
 ## 🏆 Achievements and Optimizations
 - Seeded a PostgreSQL database with over 20 million records
