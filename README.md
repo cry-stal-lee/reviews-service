@@ -12,7 +12,7 @@ For *PROJECT ATELIER*, my team was tasked with replacing the API for an e-commer
 ## 👤 Usage
 - Install dependencies using [NPM](https://www.npmjs.com/)
 ```
-npm install
+$ npm install
 ```
 - Start server
 ```
