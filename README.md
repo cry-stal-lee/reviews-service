@@ -12,11 +12,11 @@ For *PROJECT ATELIER*, my team was tasked with replacing the API for an e-commer
 ## 👤 Usage
 - Install dependencies using [NPM](https://www.npmjs.com/)
 ```
-$ npm install
+npm install
 ```
 - Start server
 ```
-$ npm start
+npm start
 ```
 - Change the connection string in the database file to refer to your Postgres database
 - Run the ETL code to seed your database
